@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import S from '../build/Synthesis.mjs';
+import R from '../build/Rewrite.mjs';
+const T={$:'ETrue'}, F={$:'EFalse'};
+const v=id=>({$:'EVar',id});
+const n=expr=>({$:'ENot',expr});
+const a=(left,right)=>({$:'EAnd',left,right});
+const choices=(a,b,c,d)=>({$:'Choices',a,b,c,d});
+for(let bits=0;bits<16;bits++) {
+  const s=S.dnf(2,bits);
+  assert.equal(s.$,'SynthExpr');
+  assert.deepEqual(R.truth_table(2,s.expr),{$:'TruthKey',bits});
+}
+assert.equal(S.dnf(2,16).$,'SynthInvalid');
+assert.equal(S.dnf(6,0).$,'SynthInvalid');
+const target=a(v(0),n(v(1)));
+const found=S.cegis(2,target,choices(T,F,v(0),target));
+assert.equal(found.$,'SearchFound');
+assert.equal(found.index,3);
+assert.notEqual(found.witnesses,0);
+assert.equal(S.cegis(1,v(1),choices(T,F,T,F)).$,'SynthInvalid');
+console.log('synthesis tests passed');
+const hi=S.dnf(5,2147483648);
+assert.equal(hi.$,'SynthExpr');
+assert.deepEqual(R.truth_table(5,hi.expr),{$:'TruthKey',bits:2147483648});
+console.log('32-bit truth-table boundary passed');
+const grammar=(allow_not,allow_and,allow_or,allow_xor)=>({$:'Grammar',allow_not,allow_and,allow_or,allow_xor});
+const synthXor=S.synthesize_grammar(2,6,grammar(false,false,false,true));
+assert.equal(synthXor.$,'SynthExpr');
+assert.deepEqual(R.truth_table(2,synthXor.expr),{$:'TruthKey',bits:6});
+assert.equal(S.synthesize_grammar(2,6,grammar(false,false,false,false)).$,'GrammarExhausted');
+assert.equal(S.synthesize_grammar(2,16,grammar(true,true,true,true)).$,'SynthInvalid');
+assert.equal(S.synthesize_grammar(4,0,grammar(true,true,true,true)).$,'SynthInvalid');
+console.log('grammar-guided synthesis tests passed');

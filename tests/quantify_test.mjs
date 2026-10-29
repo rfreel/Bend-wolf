@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import Q from '../build/Quantify.mjs';
+const c=(ap,an,bp,bn,strict)=>({$:'Inequality',ap,an,bp,bn,strict});
+const upperStrict=c(2,0,0,4,true), upperClosed=c(2,0,0,4,false),lower=c(0,1,2,0,false);
+assert.deepEqual(Q.exists_pair(upperStrict,lower),{$:'RealFalse'});
+assert.deepEqual(Q.exists_pair(upperClosed,lower),{$:'RealTrue'});
+assert.deepEqual(Q.exists_pair(c(1,0,0,1,true),lower),{$:'RealFalse'});
+assert.deepEqual(Q.exists_pair(c(1,0,1,0,true),c(2,0,2,0,false)),{$:'RealTrue'});
+assert.deepEqual(Q.exists_pair(c(0,0,1,0,false),lower),{$:'RealFalse'});
+assert.deepEqual(Q.forall_pair(c(0,0,0,1,false),c(0,0,0,0,false)),{$:'RealTrue'});
+assert.deepEqual(Q.forall_pair(upperClosed,lower),{$:'RealFalse'});
+assert.equal(Q.exists_pair(c(1001,0,0,0,false),lower).$,'RealInvalid');
+console.log('exact real linear quantifier elimination passed');

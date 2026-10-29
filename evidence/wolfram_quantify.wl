@@ -1,0 +1,1 @@
+Clear[x]; ExportString[<|"exists"->{Resolve[Exists[x,2*x-4<0 && -x+2<=0],Reals],Resolve[Exists[x,2*x-4<=0 && -x+2<=0],Reals],Resolve[Exists[x,x-1<0 && -x+2<=0],Reals],Resolve[Exists[x,x+1<0 && 2*x+2<=0],Reals],Resolve[Exists[x,1<=0 && -x+2<=0],Reals]},"forall"->{Resolve[ForAll[x,-1<=0 && 0<=0],Reals],Resolve[ForAll[x,2*x-4<=0 && -x+2<=0],Reals]}|>,"RawJSON","Compact"->True]

@@ -1,0 +1,1 @@
+g=Graph[{1->2,1->3,2->4,3->4},EdgeCapacity->{2,2,2,2},EdgeCost->{1,3,1,1}]; ExportString[<|"cost"->FindMinimumCostFlow[g,1,4,3],"matrix"->Normal[FindMinimumCostFlow[g,1,4,3,"FlowMatrix"]],"invariantNullSpace"->NullSpace[{{1,-1},{-1,1}}]|>,"RawJSON","Compact"->True]

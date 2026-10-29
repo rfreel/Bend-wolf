@@ -1,0 +1,11 @@
+{
+  "factor": "(-1 + x)*(1 + x)",
+  "coefficientsMod32": [
+    4294967295,
+    0,
+    1
+  ],
+  "rootsZeroTo10": [
+    1
+  ]
+}

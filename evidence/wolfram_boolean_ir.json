@@ -1,0 +1,44 @@
+{
+  "schema": "bend-boolean-ir/v1",
+  "variables": [
+    "a",
+    "b"
+  ],
+  "specification": {
+    "op": "or",
+    "left": {
+      "op": "and",
+      "left": {
+        "op": "var",
+        "name": "a"
+      },
+      "right": {
+        "op": "var",
+        "name": "b"
+      }
+    },
+    "right": {
+      "op": "and",
+      "left": {
+        "op": "var",
+        "name": "a"
+      },
+      "right": {
+        "op": "not",
+        "arg": {
+          "op": "var",
+          "name": "b"
+        }
+      }
+    }
+  },
+  "candidate": {
+    "op": "var",
+    "name": "a"
+  },
+  "provenance": {
+    "engine": "Wolfram Language",
+    "version": "15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+    "operation": "BooleanMinimize"
+  }
+}

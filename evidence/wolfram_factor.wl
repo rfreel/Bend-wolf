@@ -1,0 +1,1 @@
+Clear[x]; ExportString[<|"factor"->ToString[Factor[x^2-1],InputForm],"coefficientsMod32"->(Mod[CoefficientList[Expand[(x-1)(x+1)],x],2^32]),"rootsZeroTo10"->Select[Range[0,10],Mod[#^2-1,2^32]==0&]|>,"RawJSON","Compact"->True]

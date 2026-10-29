@@ -1,0 +1,9 @@
+Input:
+Clear[x]; ExportString[<|"roots"->(x/.ToRules[Reduce[x^2+2==3*x && 0<=x<=1000,x,Integers]]),"largestExactValue"->(1000*(1+1000+1000^2+1000^3))|>,"RawJSON","Compact"->True]
+
+Output:
+ReplaceAll::argt: ReplaceAll called with 3 arguments; 1 or 2 arguments are expected.
+Export::jsonstrictencoding: Expression "ReplaceAll" cannot be exported as "JSON".
+General::messages: Messages were generated which may indicate errors.
+
+Out[1]= $Failed

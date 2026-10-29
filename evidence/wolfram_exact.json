@@ -1,0 +1,8 @@
+{
+  "roots": [
+    1,
+    2
+  ],
+  "reduce": "x == 1 || x == 2",
+  "largestExactValue": 1001001001000
+}

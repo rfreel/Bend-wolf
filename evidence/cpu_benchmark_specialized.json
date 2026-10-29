@@ -1,0 +1,36 @@
+{
+  "workload": "1000 repetitions of the number of isomorphism classes among all 512 directed 3-vertex graphs with loops",
+  "expected_output": 104000,
+  "timing_includes": "whole-process startup and output, excludes build",
+  "warmups_per_binary": 1,
+  "alternating_order": true,
+  "samples_seconds": {
+    "bend": [
+      0.037809183,
+      0.026977737,
+      0.023918213,
+      0.02749075,
+      0.024455743
+    ],
+    "c": [
+      0.018955025,
+      0.01191542,
+      0.012102178,
+      0.012874101,
+      0.022097488
+    ]
+  },
+  "median_seconds": {
+    "bend": 0.026977737,
+    "c": 0.012874101
+  },
+  "bend_over_c_median": 2.095504532704847,
+  "algorithm_difference": "Bend v2 used generated fixed bit masks but retained generic graph expansion and graph-result construction; generic C enumerated permutations.",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "source_sha256": {
+    "Graph.bend": "99fcb3b6e77a2027a265cf15d7571abcef140b302eefd1b729d05eeaefadc88c",
+    "Bench.bend": "3d585392c3a7bda0fdbef3651fb8e5b0b265bdbe35d8f8314f8c57c82da3bf7a",
+    "bench/reference.c": "42f42a761f9784a1b0c05b9f9bc138647c823aeb7257022ababe537aaea70d90"
+  },
+  "annotation": "Description corrected after measurement; timing samples are unchanged."
+}

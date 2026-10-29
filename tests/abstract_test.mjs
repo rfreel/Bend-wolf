@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import A from '../build/Abstract.mjs';
+const v=id=>({$:'EVar',id});
+const n=expr=>({$:'ENot',expr});
+const a=(left,right)=>({$:'EAnd',left,right});
+const o=(left,right)=>({$:'EOr',left,right});
+const contradiction=a(v(0),n(v(0)));
+assert.deepEqual(A.analyze(1,contradiction,0,0),{$:'AbstractValue',possible:3});
+assert.deepEqual(A.analyze(1,contradiction,1,0),{$:'AbstractValue',possible:1});
+assert.deepEqual(A.analyze(1,contradiction,1,1),{$:'AbstractValue',possible:1});
+assert.equal(A.analyze(1,contradiction,0,1).$,'AnalysisInvalid');
+assert.equal(A.analyze(1,v(1),0,0).$,'AnalysisInvalid');
+assert.deepEqual(A.counterexample(1,contradiction),{$:'Safe'});
+assert.deepEqual(A.counterexample(2,o(v(0),v(1))),{$:'Violation',assignment:2});
+console.log('abstraction and refinement tests passed');

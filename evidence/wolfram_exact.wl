@@ -1,0 +1,1 @@
+Clear[x]; ExportString[<|"roots"->Select[Range[0,1000],#^2+2==3*#&],"reduce"->ToString[Reduce[x^2+2==3*x && 0<=x<=1000,x,Integers],InputForm],"largestExactValue"->(1000*(1+1000+1000^2+1000^3))|>,"RawJSON","Compact"->True]

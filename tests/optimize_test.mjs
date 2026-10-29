@@ -1,0 +1,28 @@
+import assert from 'node:assert/strict';
+import O from '../build/Optimize.mjs';
+const p=(cost,risk)=>({$:'Point',cost,risk});
+assert.deepEqual(O.pareto4(p(1,4),p(2,2),p(4,1),p(4,4)),{$:'Frontier',mask:7});
+assert.deepEqual(O.pareto4(p(1,1),p(1,1),p(2,2),p(3,3)),{$:'Frontier',mask:3});
+const item=(cost,value)=>({$:'Item',cost,value});
+assert.deepEqual(O.allocate4(5,item(3,6),item(2,5),item(4,6),item(1,0)),{$:'Allocation',mask:3,cost:5,value:11});
+assert.deepEqual(O.allocate4(0,item(1,2),item(2,4),item(3,5),item(4,9)),{$:'Allocation',mask:0,cost:0,value:0});
+assert.equal(O.allocate4(5,item(1000001,1),item(0,0),item(0,0),item(0,0)).$,'OptimizeInvalid');
+console.log('optimization tests passed');
+// 0->1 cost 3, 0->2 cost 1, 1->2 cost 2; all capacities 2.
+assert.deepEqual(O.min_cost_flow(3,2,2,2,3,1,2),{$:'Flow',via:1,direct:2,cost:7});
+assert.deepEqual(O.min_cost_flow(0,2,2,2,3,1,2),{$:'Flow',via:0,direct:0,cost:0});
+assert.equal(O.min_cost_flow(5,2,2,2,3,1,2).$,'NoFlow');
+assert.equal(O.min_cost_flow(101,2,2,2,3,1,2).$,'OptimizeInvalid');
+console.log('minimum-cost flow tests passed');
+const edge=(from,to,capacity,cost)=>({$:'FlowEdge',from,to,capacity,cost});
+const network=(a,b,c,d)=>({$:'FlowEdges',a,b,c,d});
+const net=network(edge(0,1,2,1),edge(0,2,2,3),edge(1,3,2,1),edge(2,3,2,1));
+assert.deepEqual(O.min_cost_flow4(4,net,0,3,3),{$:'Flow4',flows:102,cost:8});
+assert.deepEqual(O.min_cost_flow4(4,net,0,3,0),{$:'Flow4',flows:0,cost:0});
+assert.equal(O.min_cost_flow4(4,net,0,3,5).$,'NoFlow');
+assert.equal(O.min_cost_flow4(4,net,0,0,1).$,'OptimizeInvalid');
+assert.equal(O.min_cost_flow4(4,network(edge(0,4,1,1),edge(0,0,0,0),edge(0,0,0,0),edge(0,0,0,0)),0,3,1).$,'OptimizeInvalid');
+console.log('general bounded flow tests passed');
+assert.equal(O.allocate4(4000000,item(1000000,1000000),item(1000000,1000000),item(1000000,1000000),item(1000000,1000000)).value,4000000);
+assert.equal(O.allocate4(4000001,item(0,0),item(0,0),item(0,0),item(0,0)).$,'OptimizeInvalid');
+assert.equal(O.min_cost_flow4(2,network(edge(0,1,1,1001),edge(0,0,0,0),edge(0,0,0,0),edge(0,0,0,0)),0,1,1).$,'OptimizeInvalid');

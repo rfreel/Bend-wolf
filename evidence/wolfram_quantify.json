@@ -1,0 +1,13 @@
+{
+  "exists": [
+    false,
+    true,
+    false,
+    true,
+    false
+  ],
+  "forall": [
+    true,
+    false
+  ]
+}

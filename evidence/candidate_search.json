@@ -1,0 +1,66 @@
+{
+  "workload": "1000 repetitions, all 512 directed 3-vertex graphs with loops",
+  "validation": "independent exhaustive canonical keys plus count, prior to benchmarking",
+  "timing": "whole-process startup and output, one warmup, rotated candidate order",
+  "samples": 5,
+  "winner": "compact",
+  "promotion": "none",
+  "candidates": [
+    {
+      "name": "baseline",
+      "source": "bench/baseline/Bench.bend",
+      "graph_sha256": "bd3ed5190ef41b86dd0932675ff40079aebc2062f7037fe4390cac9503eb97b6",
+      "status": "validated",
+      "samples_seconds": [
+        0.599843412,
+        0.518390454,
+        0.530670001,
+        0.552647399,
+        0.54498975
+      ],
+      "median_seconds": 0.54498975
+    },
+    {
+      "name": "permutations",
+      "source": "bench/optimized_v1/Bench.bend",
+      "graph_sha256": "0ef12454a1a153034baa003917a6d36142c261d7c13cba7cefe62bc5663a7c8b",
+      "status": "validated",
+      "samples_seconds": [
+        0.103510589,
+        0.098445162,
+        0.093810429,
+        0.106708969,
+        0.104439639
+      ],
+      "median_seconds": 0.103510589
+    },
+    {
+      "name": "masked",
+      "source": "bench/specialized_v2/Bench.bend",
+      "graph_sha256": "99fcb3b6e77a2027a265cf15d7571abcef140b302eefd1b729d05eeaefadc88c",
+      "status": "validated",
+      "samples_seconds": [
+        0.024960826,
+        0.03801128,
+        0.025229394,
+        0.025690353,
+        0.028724814
+      ],
+      "median_seconds": 0.025690353
+    },
+    {
+      "name": "compact",
+      "source": "bench/scale/Bench1000.bend",
+      "graph_sha256": "8fd7fc663ac0cf0e014583a3e49101b9838e36ee2eedce64205f3128e366f1ce",
+      "status": "validated",
+      "samples_seconds": [
+        0.003619196,
+        0.003356114,
+        0.004969994,
+        0.003748288,
+        0.002853202
+      ],
+      "median_seconds": 0.003619196
+    }
+  ]
+}

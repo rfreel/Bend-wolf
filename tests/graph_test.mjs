@@ -1,0 +1,55 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import G from '../build/Graph.mjs';
+// adjacency bit (4 * source + destination); directed graphs, at most four vertices
+const graph=(n,es)=>es.reduce((b,[u,v])=>b|(1<<(4*u+v)),0);
+const path=graph(3,[[0,1],[1,2]]);
+assert.deepEqual(G.shortest(3,path,0,2),{$:'Distance',value:2});
+assert.deepEqual(G.shortest(3,path,0,0),{$:'Distance',value:0});
+assert.deepEqual(G.shortest(3,path,2,0),{$:'Unreachable'});
+assert.deepEqual(G.shortest(3,path,0,3),{$:'GraphInvalid'});
+assert.deepEqual(G.shortest(2,path,0,1),{$:'GraphInvalid'});
+assert.deepEqual(G.shortest(5,0,0,0),{$:'GraphInvalid'});
+assert.equal(G.has_cycle(3,path).$, 'Acyclic');
+assert.equal(G.has_cycle(3,path|(1<<8)).$, 'Cyclic');
+assert.equal(G.has_cycle(1,1).$, 'Cyclic');
+const renamed=graph(3,[[2,0],[0,1]]);
+assert.deepEqual(G.canonical(3,path),G.canonical(3,renamed));
+assert.notDeepEqual(G.canonical(3,path),G.canonical(3,graph(3,[[0,1]])));
+assert.deepEqual(G.canonical(0,0),{$:'GraphKey',nodes:0,edges:0});
+assert.equal(G.canonical(3,path | (1<<15)).$, 'GraphInvalid');
+console.log('graph tests passed');
+const triangle=graph(3,[[0,1],[1,0],[1,2],[2,1],[2,0],[0,2]]);
+assert.deepEqual(G.min_cut(3,triangle),{$:'MinCut',size:2,side:1});
+assert.equal(G.min_cut(3,path).$,'GraphInvalid');
+assert.equal(G.min_cut(1,0).$,'GraphInvalid');
+assert.equal(G.isomorphic(3,path,renamed).$,'Isomorphic');
+assert.equal(G.isomorphic(3,path,graph(3,[[0,1]])).$,'NonIsomorphic');
+const topo=G.topological(3,path);
+assert.equal(topo.$,'Topology');
+assert.ok(G.mapped(topo.code,0)<G.mapped(topo.code,1));
+assert.ok(G.mapped(topo.code,1)<G.mapped(topo.code,2));
+assert.equal(G.topological(3,path|(1<<8)).$,'Cyclic');
+console.log('graph extras passed');
+for (const [n,count] of [[0,1],[1,2],[2,10],[3,104]]) {
+  assert.deepEqual(G.reduced_count(n),{$:'ReducedCount',count});
+}
+assert.equal(G.reduced_count(4).$,'GraphInvalid');
+console.log('symmetry-reduced state enumeration passed');
+const pth=G.shortest_path(3,path,0,2);
+assert.equal(pth.$,'Path'); assert.equal(pth.length,2);
+assert.deepEqual([0,1,2].map(i=>(pth.nodes>>>(2*i))&3),[0,1,2]);
+assert.deepEqual(G.shortest_path(3,path,1,1),{$:'Path',length:0,nodes:1});
+assert.equal(G.shortest_path(3,path,2,0).$,'Unreachable');
+assert.deepEqual(G.add_edge(3,0,1,2),{$:'GraphKey',nodes:3,edges:64});
+assert.equal(G.add_edge(3,0,0,3).$,'GraphInvalid');
+console.log('path and graph construction tests passed');
+// Start with one edge; add up to k edges, quotienting states by vertex relabeling.
+const reachRef=JSON.parse(readFileSync(new URL('../evidence/wolfram_reachability.json',import.meta.url)));
+assert.deepEqual([0,1,2,3].map(k=>G.reduced_reachable_count(3,2,k).count),reachRef);
+assert.equal(G.reachable_class(3,2,64,0).$,'Reachable');
+assert.equal(G.reachable_class(3,2,0,3).$,'Unreachable');
+assert.equal(G.reachable_class(3,2,2+64,0).$,'Unreachable');
+assert.equal(G.reachable_class(3,2,2+64,1).$,'Reachable');
+assert.equal(G.reduced_reachable_count(4,0,0).$,'GraphInvalid');
+console.log('symmetry-reduced reachability tests passed');

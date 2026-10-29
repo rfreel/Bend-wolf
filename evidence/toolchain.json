@@ -1,0 +1,21 @@
+{
+  "recorded_date": "2026-10-29",
+  "bend_version": "2.0.39",
+  "bend_compiler_commit": "not established; the observed compiler files do not match the separately downloaded 4f99f4c checkout",
+  "bend_compiler_file_sha256": {
+    "main.ts": "08fce099aa40693165891f143875ae40cf4b53d6a651673c54ab053e8207a49f",
+    "bend.ts": "22b5915cd7cccd23b6aa28849b23a7f1e3549333cdd0954ab48103ddd0777e9e",
+    "comp.ts": "efcd6a0c476849fce03faefd718e3058633b2a28ea34d45ca14fa383c726d0ef",
+    "safe.ts": "56af896b1ee7ab1156343f9e743e7061ee35995758faf8b3323fb9456d902bb0",
+    "base.bend": "3cd0b0944b11e15c4da5c9af2560e3c04f27d3d37027f1617899aeec17b499ce",
+    "bendtt.lean": "d7268ff461de974bd4cd875d9766c71c62ee6b2e6411b9bab84839870db68a80"
+  },
+  "bend_host": "Node.js 24.22.1 with a small Bun.gc compatibility shim",
+  "kernel": "Lean 4.34.0 (293d5d0c0c3f3dded4688b3ccd6a33939ac5102b), with a /proc compatibility shim",
+  "native_compiler": "Ubuntu clang 18.1.3, Bend native default -O3",
+  "reference_compiler": "Ubuntu clang 18.1.3 -O3 -std=c11 for final comparisons; GCC 13.3 for early samples",
+  "wolfram": "Wolfram Language 15.0.1 for Linux x86 (64-bit) (July 2, 2026)",
+  "machine": "x86_64, AMD EPYC 9V74 virtualized CPU; 9 reported CPUs",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "gpu": "not available in this environment; not tested"
+}

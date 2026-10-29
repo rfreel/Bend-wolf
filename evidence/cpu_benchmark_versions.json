@@ -1,0 +1,35 @@
+{
+  "workload": "1000 repetitions of the number of isomorphism classes among all 512 directed 3-vertex graphs with loops",
+  "expected_output": 104000,
+  "timing_includes": "whole-process startup and output, excludes build",
+  "warmups_per_binary": 1,
+  "alternating_order": true,
+  "samples_seconds": {
+    "baseline": [
+      0.608032469,
+      0.556993627,
+      0.621031943,
+      0.506117179,
+      0.518800274
+    ],
+    "current": [
+      0.002825956,
+      0.002705654,
+      0.020196888,
+      0.003202925,
+      0.002925626
+    ]
+  },
+  "median_seconds": {
+    "baseline": 0.556993627,
+    "current": 0.002925626
+  },
+  "baseline_over_current_median": 190.38442610231107,
+  "source_sha256": {
+    "bench/baseline/Graph.bend": "bd3ed5190ef41b86dd0932675ff40079aebc2062f7037fe4390cac9503eb97b6",
+    "bench/baseline/Bench.bend": "3d585392c3a7bda0fdbef3651fb8e5b0b265bdbe35d8f8314f8c57c82da3bf7a",
+    "bench/scale/Graph.bend": "8fd7fc663ac0cf0e014583a3e49101b9838e36ee2eedce64205f3128e366f1ce",
+    "bench/scale/Permutations.bend": "688d4ad494da763c9272efd6c25eb1e31537e4d8abaa297bbe054ab028213e6e",
+    "bench/scale/Bench1000.bend": "0a29252027a2ed2d6b95937f3029a8e9c4c44d81806ec1e4c2576cba23e70f04"
+  }
+}
